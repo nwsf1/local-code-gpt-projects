@@ -1,0 +1,7 @@
+bitsandbytes
+accelerate
+peft
+transformers>=4.35.0
+datasets
+tokenizers
+safetensors
