@@ -1,0 +1,126 @@
+<!-- File: chat_gui/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Code-GPT Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .chat-box {
+      max-height: 500px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+      background: #fefefe;
+    }
+    .message {
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .user {
+      background: #e1f5fe;
+      border: 1px solid #81d4fa;
+      align-self: flex-end;
+    }
+    .bot {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      align-self: flex-start;
+    }
+    .chat-entry {
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-entry .sender {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+    textarea {
+      flex: 1;
+      resize: vertical;
+      height: 60px;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #2196f3;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 0 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #1976d2;
+    }
+    .reset-btn {
+      background: #f44336;
+      margin-left: 10px;
+    }
+    .reset-btn:hover {
+      background: #d32f2f;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Code-GPT Chat</h1>
+    <div class="chat-box">
+      {% for turn in history %}
+        <div class="chat-entry">
+          <div class="message user">
+            <div class="sender">You:</div>
+            <div class="text">{{ turn.user }}</div>
+          </div>
+          {% if turn.bot %}
+            <div class="message bot">
+              <div class="sender">Bot:</div>
+              <div class="text"><pre>{{ turn.bot }}</pre></div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      {% if history|length == 0 %}
+        <p style="color: #666; text-align: center;">Start the conversation by typing below.</p>
+      {% endif %}
+    </div>
+    <form method="post" class="chat-input">
+      <textarea name="user_input" placeholder="Type your instruction here..." required></textarea>
+      <button type="submit">Send</button>
+      <button formaction="{{ url_for('reset') }}" formmethod="post" class="reset-btn">Reset</button>
+    </form>
+  </div>
+</body>
+</html>
