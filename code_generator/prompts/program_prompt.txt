@@ -1,0 +1,6 @@
+# Write a complete Python program named file_manager.py that:
+# 1. Recursively traverses a given directory (passed as a CLI argument).
+# 2. Identifies files larger than 10 MB and prints their full paths.
+# 3. Offers a --delete switch to delete those large files after listing.
+# 4. Logs all actions to file_manager.log in the current directory.
+# Include all necessary imports and proper error handling.
